@@ -1,4 +1,4 @@
-package barbershop_vk.demo;
+package barbershop_vk;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
