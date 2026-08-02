@@ -5,7 +5,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.3-green)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 
-Projeto desenvolvido para teste de conhecimento e com possivel venda no final**.
+Projeto desenvolvido para teste de conhecimento e com possivel venda no final.
 
 ---
 
