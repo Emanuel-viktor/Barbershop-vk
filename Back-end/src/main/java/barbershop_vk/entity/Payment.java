@@ -1,11 +1,67 @@
 package barbershop_vk.entity;
 
 import barbershop_vk.enums.PaymentMethod;
+import barbershop_vk.enums.StatusPayment;
+
+import java.util.Objects;
 
 public class Payment {
     private int id;
     private int value;
     private PaymentMethod PaymentMethod ;
+    private StatusPayment StatusPayment ;
 
+    public Payment() {
+    }
 
+    public Payment(int id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment) {
+        this.id = id;
+        this.value = value;
+        PaymentMethod = paymentMethod;
+        StatusPayment = statusPayment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return PaymentMethod;
+    }
+
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        PaymentMethod = paymentMethod;
+    }
+
+    public StatusPayment getStatusPayment() {
+        return StatusPayment;
+    }
+
+    public void setStatusPayment(StatusPayment statusPayment) {
+        StatusPayment = statusPayment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return id == payment.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
