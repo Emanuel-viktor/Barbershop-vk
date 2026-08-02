@@ -142,7 +142,3 @@ src
 
 ---
 
-
-## 📄 Licença
-
-Projeto acadêmico desenvolvido exclusivamente para fins educacionais.
