@@ -8,7 +8,7 @@ import jakarta.persistence.Enumerated;
 import java.util.Objects;
 
 public class Payment {
-    private int id;
+    private Long id;
     private int value;
     @Enumerated(EnumType.STRING)
     private PaymentMethod PaymentMethod ;
@@ -18,18 +18,18 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(int id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment) {
+    public Payment(Long id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment) {
         this.id = id;
         this.value = value;
         PaymentMethod = paymentMethod;
         StatusPayment = statusPayment;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
