@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,10 +29,22 @@ public class Scheduling {
     @JoinColumn(name = "client_id")
     private User client;
 
+    @ManyToOne
+    @JoinColumn(name = "barber_id")
+    private Barber barber;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Service service;
+
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
+
     public Scheduling() {
     }
 
-    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt, User client) {
+    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt, User client, Barber barber, Service service, Payment payment) {
 
         this.id = id;
         this.appointmentDate = appointmentDate;
@@ -43,6 +56,9 @@ public class Scheduling {
         this.queueOrder = queueOrder;
         this.createdAt = createdAt;
         this.client = client;
+        this.barber = barber;
+        this.service = service;
+        this.payment = payment;
     }
 
     public Long getId() {
@@ -123,7 +139,30 @@ public class Scheduling {
     public void setClient(User client) {
         this.client = client;
     }
-    
+
+    public Barber getBarber() {
+        return barber;
+    }
+    public void setBarber(Barber barber) {
+        this.barber = barber;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

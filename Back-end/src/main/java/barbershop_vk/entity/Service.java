@@ -1,11 +1,9 @@
 package barbershop_vk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class Service {
@@ -17,6 +15,8 @@ public class Service {
     private String description;
     private BigDecimal price;
     private int duration;
+    @OneToMany(mappedBy = "service")
+    private List<Scheduling> schedulings;
 
     public Service() {
     }

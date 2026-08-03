@@ -17,14 +17,18 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private StatusPayment StatusPayment ;
 
+    @OneToOne(mappedBy = "payment")
+    private Scheduling scheduling;
+
     public Payment() {
     }
 
-    public Payment(Long id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment) {
+    public Payment(Long id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment, Scheduling scheduling) {
         this.id = id;
         this.value = value;
         PaymentMethod = paymentMethod;
         StatusPayment = statusPayment;
+        this.scheduling = scheduling;
     }
 
     public Long getId() {
@@ -57,6 +61,13 @@ public class Payment {
 
     public void setStatusPayment(StatusPayment statusPayment) {
         StatusPayment = statusPayment;
+    }
+
+    public Scheduling getScheduling() {
+        return scheduling;
+    }
+    public void setScheduling(Scheduling scheduling) {
+        this.scheduling = scheduling;
     }
 
     @Override
