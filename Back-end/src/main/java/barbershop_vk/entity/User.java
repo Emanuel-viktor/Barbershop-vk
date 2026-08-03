@@ -1,10 +1,8 @@
 package barbershop_vk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class User {
@@ -17,15 +15,19 @@ public class User {
     private String password;
     private String telephone;
 
+    @OneToMany(mappedBy = "client")
+    private List<Scheduling> schedulings;
+
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, String telephone) {
+    public User(Long id, String name, String email, String password, String telephone, List<Scheduling> schedulings ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.telephone = telephone;
+        this.schedulings = schedulings;
     }
 
     public String getEmail() {
@@ -66,6 +68,13 @@ public class User {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public List<Scheduling> getSchedulings() {
+        return schedulings;
+    }
+    public void setSchedulings(List<Scheduling> schedulings) {
+        this.schedulings = schedulings;
     }
 
     @Override

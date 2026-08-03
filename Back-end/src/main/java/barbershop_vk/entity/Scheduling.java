@@ -24,10 +24,14 @@ public class Scheduling {
     private Integer queueOrder;
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
+
     public Scheduling() {
     }
 
-    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt) {
+    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt, User client) {
 
         this.id = id;
         this.appointmentDate = appointmentDate;
@@ -38,6 +42,7 @@ public class Scheduling {
         this.status = status;
         this.queueOrder = queueOrder;
         this.createdAt = createdAt;
+        this.client = client;
     }
 
     public Long getId() {
@@ -112,6 +117,13 @@ public class Scheduling {
         this.createdAt = createdAt;
     }
 
+    public User getClient() {
+        return client;
+    }
+    public void setClient(User client) {
+        this.client = client;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
