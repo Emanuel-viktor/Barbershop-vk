@@ -2,12 +2,14 @@ package barbershop_vk.entity;
 
 import barbershop_vk.enums.PaymentMethod;
 import barbershop_vk.enums.StatusPayment;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
 import java.util.Objects;
-
+@Entity
 public class Payment {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int value;
     @Enumerated(EnumType.STRING)

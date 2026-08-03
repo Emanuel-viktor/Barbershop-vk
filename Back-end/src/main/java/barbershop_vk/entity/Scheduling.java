@@ -1,15 +1,19 @@
 package barbershop_vk.entity;
 
 import barbershop_vk.enums.SchedulingStatus;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
+@Entity
 public class Scheduling {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private LocalDate appointmentDate;
     private LocalTime scheduledTime;
     private LocalTime startTime;
@@ -23,7 +27,9 @@ public class Scheduling {
     public Scheduling() {
     }
 
-    public Scheduling(LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt) {
+    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt) {
+
+        this.id = id;
         this.appointmentDate = appointmentDate;
         this.scheduledTime = scheduledTime;
         this.startTime = startTime;
@@ -32,6 +38,14 @@ public class Scheduling {
         this.status = status;
         this.queueOrder = queueOrder;
         this.createdAt = createdAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalTime getScheduledTime() {
@@ -98,4 +112,15 @@ public class Scheduling {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Scheduling that = (Scheduling) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

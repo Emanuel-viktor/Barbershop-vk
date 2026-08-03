@@ -1,11 +1,18 @@
 package barbershop_vk.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.math.BigDecimal;
 import java.util.Objects;
-
+@Entity
 public class Service {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;
@@ -14,7 +21,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(String name, int id, String description, BigDecimal price, int duration) {
+    public Service(String name, Long id, String description, BigDecimal price, int duration) {
         this.name = name;
         this.id = id;
         this.description = description;
@@ -22,11 +29,11 @@ public class Service {
         this.duration = duration;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
