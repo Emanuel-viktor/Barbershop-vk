@@ -15,7 +15,7 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ServiceRepository serviceRepository;
+    private BarberServiceRepository serviceRepository;
     @Autowired
     private PaymentRepository paymentRepository;
     @Autowired
@@ -37,7 +37,7 @@ public class TestConfig implements CommandLineRunner {
         Payment p1=new Payment(null,20, PaymentMethod.CREDITO, StatusPayment.APROVADO,null);
         paymentRepository.save(p1);
 
-        Service s1=new Service("degrade",null,"corte moderno",null,20);
+        BarberService s1=new BarberService("degrade",null,"corte moderno",null,20);
         serviceRepository.save(s1);
 
         Scheduling sc=new Scheduling(null,null,null,null,null,null,null,null,null,null,null,null,null);

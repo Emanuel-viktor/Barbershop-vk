@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -35,7 +34,7 @@ public class Scheduling {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private BarberService service;
 
     @OneToOne
     @JoinColumn(name = "payment_id")
@@ -44,7 +43,7 @@ public class Scheduling {
     public Scheduling() {
     }
 
-    public Scheduling(Long id,   LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt, User client, Barber barber, Service service, Payment payment) {
+    public Scheduling(Long id, LocalDate appointmentDate, LocalTime scheduledTime, LocalTime startTime, LocalTime endTime, String observation, SchedulingStatus status, Integer queueOrder, LocalDateTime createdAt, User client, Barber barber, BarberService service, Payment payment) {
 
         this.id = id;
         this.appointmentDate = appointmentDate;
@@ -147,11 +146,11 @@ public class Scheduling {
         this.barber = barber;
     }
 
-    public Service getService() {
+    public BarberService getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(BarberService service) {
         this.service = service;
     }
 

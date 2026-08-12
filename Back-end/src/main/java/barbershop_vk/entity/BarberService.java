@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 @Entity
-public class Service {
+public class BarberService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Service {
     @OneToMany(mappedBy = "service")
     private List<Scheduling> schedulings;
 
-    public Service() {
+    public BarberService() {
     }
 
-    public Service(String name, Long id, String description, BigDecimal price, int duration) {
+    public BarberService(String name, Long id, String description, BigDecimal price, int duration) {
         this.name = name;
         this.id = id;
         this.description = description;
@@ -72,7 +72,7 @@ public class Service {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Service service = (Service) o;
+        BarberService service = (BarberService) o;
         return id == service.id;
     }
 
