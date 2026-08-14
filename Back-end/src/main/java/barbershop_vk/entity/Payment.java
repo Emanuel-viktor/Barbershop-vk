@@ -3,10 +3,19 @@ package barbershop_vk.entity;
 import barbershop_vk.enums.PaymentMethod;
 import barbershop_vk.enums.StatusPayment;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Objects;
+@Setter
+@Getter
 @Entity
-public class Payment {
+@Table(name = "tb_payment")
+public class Payment implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,45 +38,6 @@ public class Payment {
         this.value = value;
         PaymentMethod = paymentMethod;
         StatusPayment = statusPayment;
-        this.scheduling = scheduling;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    public PaymentMethod getPaymentMethod() {
-        return PaymentMethod;
-    }
-
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
-        PaymentMethod = paymentMethod;
-    }
-
-    public StatusPayment getStatusPayment() {
-        return StatusPayment;
-    }
-
-    public void setStatusPayment(StatusPayment statusPayment) {
-        StatusPayment = statusPayment;
-    }
-
-    public Scheduling getScheduling() {
-        return scheduling;
-    }
-    public void setScheduling(Scheduling scheduling) {
         this.scheduling = scheduling;
     }
 

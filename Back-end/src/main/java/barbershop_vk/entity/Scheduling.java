@@ -2,14 +2,23 @@ package barbershop_vk.entity;
 
 import barbershop_vk.enums.SchedulingStatus;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
-public class Scheduling {
+@Table(name = "tb_scheduling")
+public class Scheduling implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,108 +66,6 @@ public class Scheduling {
         this.client = client;
         this.barber = barber;
         this.service = service;
-        this.payment = payment;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalTime getScheduledTime() {
-        return scheduledTime;
-    }
-
-    public void setScheduledTime(LocalTime scheduledTime) {
-        this.scheduledTime = scheduledTime;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDate getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDate appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getObservation() {
-        return observation;
-    }
-
-    public void setObservation(String observation) {
-        this.observation = observation;
-    }
-
-    public SchedulingStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(SchedulingStatus status) {
-        this.status = status;
-    }
-
-    public Integer getQueueOrder() {
-        return queueOrder;
-    }
-
-    public void setQueueOrder(Integer queueOrder) {
-        this.queueOrder = queueOrder;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public User getClient() {
-        return client;
-    }
-    public void setClient(User client) {
-        this.client = client;
-    }
-
-    public Barber getBarber() {
-        return barber;
-    }
-    public void setBarber(Barber barber) {
-        this.barber = barber;
-    }
-
-    public BarberService getService() {
-        return service;
-    }
-
-    public void setService(BarberService service) {
-        this.service = service;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
         this.payment = payment;
     }
 

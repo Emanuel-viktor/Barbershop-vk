@@ -1,12 +1,20 @@
 package barbershop_vk.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+@Setter
+@Getter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "tb_users")
+public class User implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,53 +36,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.telephone = telephone;
-        this.schedulings = schedulings;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public List<Scheduling> getSchedulings() {
-        return schedulings;
-    }
-    public void setSchedulings(List<Scheduling> schedulings) {
         this.schedulings = schedulings;
     }
 
