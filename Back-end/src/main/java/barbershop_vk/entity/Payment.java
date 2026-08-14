@@ -17,7 +17,8 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private StatusPayment StatusPayment ;
 
-    @OneToOne(mappedBy = "payment")
+    @OneToOne
+    @JoinColumn(name = "scheduling_id")
     private Scheduling scheduling;
 
     public Payment() {

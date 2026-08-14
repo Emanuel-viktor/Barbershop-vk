@@ -33,7 +33,7 @@ public class Scheduling {
     private Barber barber;
 
     @ManyToOne
-    @JoinColumn(name = "service_id")
+    @JoinColumn(name = "barber_service_id")
     private BarberService service;
 
     @OneToOne
