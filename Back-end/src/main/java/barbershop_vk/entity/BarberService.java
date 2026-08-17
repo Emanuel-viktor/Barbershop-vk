@@ -23,7 +23,7 @@ public class BarberService implements Serializable {
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
+    private Double price;
     private int duration;
     @OneToMany(mappedBy = "service")
     private List<Scheduling> schedulings;
@@ -31,7 +31,7 @@ public class BarberService implements Serializable {
     public BarberService() {
     }
 
-    public BarberService(String name, Long id, String description, BigDecimal price, int duration) {
+    public BarberService(String name, Long id, String description, double price, int duration) {
         this.name = name;
         this.id = id;
         this.description = description;
