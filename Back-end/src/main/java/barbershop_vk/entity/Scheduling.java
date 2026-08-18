@@ -1,6 +1,7 @@
 package barbershop_vk.entity;
 
 import barbershop_vk.enums.SchedulingStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class Scheduling implements Serializable {
     private Integer queueOrder;
     private LocalDateTime createdAt;
 
+    //ESTA REPETINDO QUANDO COLOCA NO POSTMAN , SEM FIM (AJUSTAR)
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
