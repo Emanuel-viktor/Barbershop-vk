@@ -1,7 +1,9 @@
 package barbershop_vk.entity;
 
 import barbershop_vk.enums.SchedulingStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,19 +36,23 @@ public class Scheduling implements Serializable {
     private Integer queueOrder;
     private LocalDateTime createdAt;
 
-    //ESTA REPETINDO QUANDO COLOCA NO POSTMAN , SEM FIM (AJUSTAR)
+
+    @JsonBackReference("user-scheduling")
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
 
+    @JsonManagedReference("barber-scheduling")
     @ManyToOne
     @JoinColumn(name = "barber_id")
     private Barber barber;
 
+    @JsonManagedReference("service-scheduling")
     @ManyToOne
     @JoinColumn(name = "barber_service_id")
     private BarberService service;
 
+    @JsonManagedReference("payment-scheduling")
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;

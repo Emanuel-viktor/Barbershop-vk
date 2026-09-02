@@ -1,5 +1,7 @@
 package barbershop_vk.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,7 +25,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String telephone;
-
+    @JsonManagedReference("user-scheduling")
     @OneToMany(mappedBy = "client")
     private List<Scheduling> schedulings;
 

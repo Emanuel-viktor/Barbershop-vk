@@ -1,5 +1,6 @@
 package barbershop_vk.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,8 @@ public class BarberService implements Serializable {
     private String description;
     private Double price;
     private int duration;
+
+    @JsonBackReference("service-scheduling")
     @OneToMany(mappedBy = "service")
     private List<Scheduling> schedulings;
 

@@ -2,6 +2,7 @@ package barbershop_vk.entity;
 
 import barbershop_vk.enums.PaymentMethod;
 import barbershop_vk.enums.StatusPayment;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Payment implements Serializable {
     @Enumerated(EnumType.STRING)
     private StatusPayment StatusPayment ;
 
+    @JsonBackReference("payment-scheduling")
     @OneToOne
     @JoinColumn(name = "scheduling_id")
     private Scheduling scheduling;
