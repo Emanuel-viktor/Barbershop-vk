@@ -24,4 +24,8 @@ public class BarberController {
         barber=barberService.insertBarber(barber);
         return barber;
     }
+    @DeleteMapping
+    public void deleteBarber(@RequestBody Long id) {
+        barberService.deleteBarberService(id);
+    }
 }

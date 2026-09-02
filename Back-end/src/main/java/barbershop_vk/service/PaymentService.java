@@ -20,5 +20,7 @@ public class PaymentService {
     public Payment insert(Payment payment) {
         return paymentRepository.save(payment);
     }
-    
+    public void delete(Long id) {
+        paymentRepository.deleteById(id);
+    }
 }

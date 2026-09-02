@@ -25,6 +25,10 @@ public class SchedulingController {
         scheduling=schedulingService.insert(scheduling);
         return scheduling;
     }
+    @DeleteMapping
+    public void deleteScheduling(@RequestBody Long id) {
+        schedulingService.delete(id);
+    }
 
 
 }

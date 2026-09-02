@@ -20,5 +20,8 @@ public class BarberService {
     public Barber insertBarber(Barber barber) {
         return barberRepository.save(barber);
     }
+    public void deleteBarberService(Long id) {
+        barberRepository.deleteById(id);
+    }
 
 }

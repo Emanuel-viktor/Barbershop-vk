@@ -20,6 +20,9 @@ public class SchedulingService {
     public Scheduling insert(Scheduling scheduling) {
         return schedulingRepository.save(scheduling);
     }
+    public void delete(Long id){
+        schedulingRepository.deleteById(id);
+    }
 
 
 }

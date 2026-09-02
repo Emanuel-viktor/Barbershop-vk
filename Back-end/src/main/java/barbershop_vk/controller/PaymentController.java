@@ -25,6 +25,10 @@ public class PaymentController {
         payment=paymentService.insert(payment);
         return payment;
     }
+    @DeleteMapping
+    public void deletePayment(@RequestBody Long id){
+        paymentService.delete(id);
+    }
 
 
 }
