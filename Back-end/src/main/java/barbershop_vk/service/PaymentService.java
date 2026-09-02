@@ -16,4 +16,9 @@ public class PaymentService {
     public List<Payment> findAll() {
         return paymentRepository.findAll();
     }
+
+    public Payment insert(Payment payment) {
+        return paymentRepository.save(payment);
+    }
+    
 }

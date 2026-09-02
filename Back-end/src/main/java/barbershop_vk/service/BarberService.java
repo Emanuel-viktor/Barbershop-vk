@@ -17,4 +17,8 @@ public class BarberService {
         return barberRepository.findAll();
     }
 
+    public Barber insertBarber(Barber barber) {
+        return barberRepository.save(barber);
+    }
+
 }

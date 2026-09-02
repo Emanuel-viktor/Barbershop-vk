@@ -19,6 +19,7 @@ public class UserController {
     public List<User> getUsers() {
         return userService.findAll();
     }
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         user=userService.insert(user);

@@ -3,9 +3,7 @@ package barbershop_vk.controller;
 import barbershop_vk.entity.Barber;
 import barbershop_vk.service.BarberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +17,11 @@ public class BarberController {
     @GetMapping
     private List<Barber> findAll() {
         return barberService.findAll();
+    }
+
+    @PostMapping
+    public Barber createBarber(@RequestBody Barber barber) {
+        barber=barberService.insertBarber(barber);
+        return barber;
     }
 }

@@ -14,6 +14,9 @@ public class BarberServiceService {
     private BarberServiceRepository BarberServiceRepository;
 
     public List<BarberService> findAll() {
-        return BarberServiceRepository.findAll();
+        return BarberServiceRepository.findAll();}
+
+        public BarberService insert(BarberService barberService) {
+        return BarberServiceRepository.save(barberService);
+        }
     }
-}

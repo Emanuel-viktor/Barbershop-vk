@@ -17,5 +17,9 @@ public class SchedulingService {
         return schedulingRepository.findAll();
     }
 
+    public Scheduling insert(Scheduling scheduling) {
+        return schedulingRepository.save(scheduling);
+    }
+
 
 }
