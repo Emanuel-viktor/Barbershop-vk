@@ -28,4 +28,8 @@ public class BarberController {
     public void deleteBarber(@RequestBody Long id) {
         barberService.deleteBarberService(id);
     }
+    @PutMapping
+    public Barber updateBarber(@PathVariable Long id, @RequestBody Barber barber) {
+        return barberService.updateBarber(id, barber);
+    }
 }

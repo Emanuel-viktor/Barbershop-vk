@@ -24,7 +24,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User update(Long id, User user) {
+    public User updateUser(Long id, User user) {
 
         User entity = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
