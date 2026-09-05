@@ -23,4 +23,17 @@ public class UserService {
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User update(Long id, User user) {
+
+        User entity = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        entity.setName(user.getName());
+        entity.setEmail(user.getEmail());
+        entity.setTelephone(user.getTelephone());
+
+        return userRepository.save(entity);
+    }
+
     }
