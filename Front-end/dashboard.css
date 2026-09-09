@@ -678,3 +678,212 @@ footer > p {
     min-height: 240px;
   }
 }
+/* =========================
+   MODAL AGENDAMENTO
+========================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.8);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s;
+
+  z-index: 2000;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* MODAL */
+
+.modal {
+  width: 100%;
+  max-width: 650px;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  background: #181818;
+
+  border: 1px solid #333;
+  border-radius: 10px;
+
+  padding: 30px;
+
+  transform: translateY(-20px);
+  transition: 0.3s;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+/* HEADER */
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  margin-bottom: 30px;
+
+  border-bottom: 1px solid #292929;
+  padding-bottom: 20px;
+}
+
+.modal-header p {
+  color: #777;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.modal-header h2 {
+  font-size: 26px;
+}
+
+.modal-header h2 span {
+  color: #d4af37;
+}
+
+/* BOTÃO FECHAR */
+
+.close-modal {
+  background: transparent;
+  border: none;
+
+  color: #aaa;
+
+  font-size: 30px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.close-modal:hover {
+  color: #d4af37;
+}
+
+/* FORM */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #ddd;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  background: #222;
+
+  border: 1px solid #333;
+  border-radius: 6px;
+
+  padding: 13px;
+
+  color: #fff;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #d4af37;
+}
+
+.form-group select option {
+  background: #222;
+}
+
+.form-group textarea {
+  min-height: 100px;
+
+  resize: vertical;
+
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* DATA + HORÁRIO */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+/* CONFIRMAR */
+
+.btn-confirm {
+  width: 100%;
+
+  padding: 14px;
+
+  background: #d4af37;
+
+  border: none;
+  border-radius: 6px;
+
+  color: #111;
+
+  font-size: 15px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.btn-confirm:hover {
+  background: #c49b1f;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 600px) {
+  .modal {
+    padding: 22px;
+
+    max-height: 95vh;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .modal-header h2 {
+    font-size: 22px;
+  }
+}

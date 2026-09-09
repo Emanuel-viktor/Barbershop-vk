@@ -41,7 +41,9 @@
           </p>
         </div>
 
-        <a href="#" class="btn-primary"> + Agendar horário </a>
+        <a href="#" class="btn-primary" id="open-agendamento">
+          + Agendar horário
+        </a>
       </section>
 
       <!-- CARDS -->
@@ -108,8 +110,8 @@
 
             <div class="service-bottom">
               <div>
-                <strong>R$ 20,00</strong>
-                <span>⏱ 40 min</span>
+                <strong>R$ 25,00</strong>
+                <span>⏱ 30 min</span>
               </div>
 
               <a href="#"> Agendar → </a>
@@ -127,8 +129,8 @@
 
             <div class="service-bottom">
               <div>
-                <strong>R$ 25,00</strong>
-                <span>⏱ 40 min</span>
+                <strong>R$ 20,00</strong>
+                <span> ⏱ 20 min</span>
               </div>
 
               <a href="#"> Agendar → </a>
@@ -147,7 +149,7 @@
             <div class="service-bottom">
               <div>
                 <strong>R$ 15,00</strong>
-                <span>⏱ 30 min</span>
+                <span>⏱ 15 min</span>
               </div>
 
               <a href="#"> Agendar → </a>
@@ -181,7 +183,7 @@
 
             <div class="service-bottom">
               <div>
-                <strong>R$ 35,00</strong>
+                <strong>R$ 30,00</strong>
                 <span> ⏱ 40 min</span>
               </div>
 
@@ -201,5 +203,83 @@
         © 2026 Barbearia VK. Todos os direitos reservados.
       </div>
     </footer>
+    <!-- MODAL DE AGENDAMENTO -->
+    <div class="modal-overlay" id="agendamento-modal">
+      <div class="modal">
+        <div class="modal-header">
+          <div>
+            <p>BARBEARIA VK</p>
+            <h2>Agendar <span>horário</span></h2>
+          </div>
+
+          <button class="close-modal" id="close-agendamento">&times;</button>
+        </div>
+
+        <form>
+          <div class="form-group">
+            <label>Serviço</label>
+
+            <select>
+              <option value="">Selecione um serviço</option>
+              <option>Degradê - R$ 25,00 - 30 min</option>
+              <option>Corte Social - R$ 20,00 - 20 min</option>
+              <option>Barba - R$ 15,00 - 15 min</option>
+              <option>Barba + Cabelo Degradê - R$ 35,00 - 50 min</option>
+              <option>Barba + Cabelo Social - R$ 30,00 - 40 min</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Barbeiro</label>
+
+            <select>
+              <option value="">Selecione um barbeiro</option>
+              <option>Pedro</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Data</label>
+              <input type="date" />
+            </div>
+
+            <div class="form-group">
+              <label>Horário</label>
+              <select>
+                <option value="">Selecione</option>
+                <option>08:00</option>
+                <option>08:30</option>
+                <option>09:00</option>
+                <option>09:30</option>
+                <option>10:00</option>
+                <option>10:30</option>
+                <option>11:00</option>
+                <option>14:00</option>
+                <option>14:30</option>
+                <option>15:00</option>
+                <option>15:30</option>
+                <option>16:00</option>
+                <option>16:30</option>
+                <option>17:00</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Observação</label>
+
+            <textarea placeholder="Alguma observação para o barbeiro?">
+            </textarea>
+          </div>
+
+          <button type="submit" class="btn-confirm">
+            Confirmar agendamento
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="dashboard.js"></script>
   </body>
 </html>
