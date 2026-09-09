@@ -17,3 +17,26 @@ modal.addEventListener("click", function (event) {
     modal.classList.remove("active");
   }
 });
+// ===============================
+// MODAL MEUS AGENDAMENTOS
+// ===============================
+
+const openAgendamentos = document.getElementById("open-agendamentos");
+const closeAgendamentos = document.getElementById("close-agendamentos");
+const agendamentosModal = document.getElementById("agendamentos-modal");
+
+openAgendamentos.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  agendamentosModal.classList.add("active");
+});
+
+closeAgendamentos.addEventListener("click", function () {
+  agendamentosModal.classList.remove("active");
+});
+
+agendamentosModal.addEventListener("click", function (event) {
+  if (event.target === agendamentosModal) {
+    agendamentosModal.classList.remove("active");
+  }
+});

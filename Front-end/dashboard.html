@@ -58,7 +58,9 @@
             <h2>Próximo <span>agendamento</span></h2>
           </div>
 
-          <a href="#" class="btn-secondary"> Ver todos </a>
+          <a href="#" class="btn-secondary" id="open-agendamentos">
+            Ver todos
+          </a>
         </div>
 
         <div class="appointment-card">
@@ -280,6 +282,89 @@
       </div>
     </div>
 
+    <!-- MODAL MEUS AGENDAMENTOS -->
+    <div class="modal-overlay" id="agendamentos-modal">
+      <div class="modal modal-agendamentos">
+        <div class="modal-header">
+          <div>
+            <p>ÁREA DO CLIENTE</p>
+            <h2>Meus <span>agendamentos</span></h2>
+          </div>
+
+          <button class="close-modal" id="close-agendamentos">&times;</button>
+        </div>
+
+        <div class="agendamentos-list">
+          <!-- AGENDAMENTO 1 -->
+          <div class="agendamento-item">
+            <div class="agendamento-date">
+              <span>18</span>
+              <small>AGO</small>
+            </div>
+
+            <div class="agendamento-info">
+              <h3>Corte Degradê</h3>
+
+              <p>🕘 09:00</p>
+              <p>💈 Pedro</p>
+              <p>💰 R$ 20,00</p>
+            </div>
+
+            <div class="agendamento-actions">
+              <span class="status"> AGENDADO </span>
+
+              <button class="btn-reagendar">Reagendar</button>
+
+              <button class="btn-cancelar">Cancelar</button>
+            </div>
+          </div>
+
+          <!-- AGENDAMENTO 2 -->
+          <div class="agendamento-item">
+            <div class="agendamento-date">
+              <span>25</span>
+              <small>AGO</small>
+            </div>
+
+            <div class="agendamento-info">
+              <h3>Barba + Cabelo</h3>
+
+              <p>🕘 14:30</p>
+              <p>💈 Pedro</p>
+              <p>💰 R$ 35,00</p>
+            </div>
+
+            <div class="agendamento-actions">
+              <span class="status"> AGENDADO </span>
+
+              <button class="btn-reagendar">Reagendar</button>
+
+              <button class="btn-cancelar">Cancelar</button>
+            </div>
+          </div>
+
+          <!-- AGENDAMENTO FINALIZADO -->
+          <div class="agendamento-item finalizado">
+            <div class="agendamento-date">
+              <span>10</span>
+              <small>AGO</small>
+            </div>
+
+            <div class="agendamento-info">
+              <h3>Barba</h3>
+
+              <p>🕘 15:00</p>
+              <p>💈 Pedro</p>
+              <p>💰 R$ 15,00</p>
+            </div>
+
+            <div class="agendamento-actions">
+              <span class="status concluido"> CONCLUÍDO </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="dashboard.js"></script>
   </body>
 </html>
