@@ -41,5 +41,16 @@ public class UserService {
 
         return userRepository.save(entity);
     }
+    public User login(String email, String password) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("E-mail ou senha inválidos"));
+
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("E-mail ou senha inválidos");
+        }
+
+        return user;
+    }
 
     }
