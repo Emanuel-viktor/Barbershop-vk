@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String telephone;
-    @JsonManagedReference("user-scheduling")
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Scheduling> schedulings;
 

@@ -28,7 +28,7 @@ public class Barber implements Serializable {
     private String telephone;
     private String description;
 
-    @JsonBackReference("barber-scheduling")
+    @JsonManagedReference("barber-scheduling")
     @OneToMany(mappedBy = "barber")
     private List<Scheduling> schedulings;
 

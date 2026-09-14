@@ -23,9 +23,9 @@ public class Payment implements Serializable {
     private Long id;
     private int value;
     @Enumerated(EnumType.STRING)
-    private PaymentMethod PaymentMethod ;
+    private PaymentMethod paymentMethod ;
     @Enumerated(EnumType.STRING)
-    private StatusPayment StatusPayment ;
+    private StatusPayment statusPayment ;
 
     @JsonBackReference("payment-scheduling")
     @OneToOne
@@ -35,11 +35,12 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(Long id, int value, PaymentMethod paymentMethod, StatusPayment statusPayment, Scheduling scheduling) {
+    public Payment(Long id, int value, PaymentMethod paymentMethod,
+                   StatusPayment statusPayment, Scheduling scheduling) {
         this.id = id;
         this.value = value;
-        PaymentMethod = paymentMethod;
-        StatusPayment = statusPayment;
+        this.paymentMethod = paymentMethod;
+        this.statusPayment = statusPayment;
         this.scheduling = scheduling;
     }
 

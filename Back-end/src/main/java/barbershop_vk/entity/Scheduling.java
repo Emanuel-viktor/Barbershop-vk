@@ -42,12 +42,12 @@ public class Scheduling implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
-    @JsonManagedReference("barber-scheduling")
+    @JsonBackReference("barber-scheduling")
     @ManyToOne
     @JoinColumn(name = "barber_id")
     private Barber barber;
 
-    @JsonManagedReference("service-scheduling")
+    @JsonBackReference("service-scheduling")
     @ManyToOne
     @JoinColumn(name = "barber_service_id")
     private BarberService service;

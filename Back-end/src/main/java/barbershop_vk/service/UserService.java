@@ -3,6 +3,7 @@ package barbershop_vk.service;
 import barbershop_vk.entity.User;
 import barbershop_vk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,18 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
     public User insert(User obj) {
+        obj.setPassword(passwordEncoder.encode(obj.getPassword()));
         return userRepository.save(obj);
     }
+
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
