@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Barbearia VK - Cadastro</title>
+
+    <link rel="stylesheet" href="cadastro.css" />
+  </head>
+
+  <body>
+    <div class="cadastro-container">
+      <div class="cadastro-card">
+        <div class="logo">BARBEARIA <span>VK</span></div>
+
+        <p class="subtitle">Crie sua conta</p>
+
+        <form id="cadastro-form">
+          <div class="form-group">
+            <label for="name">Nome</label>
+
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Digite seu nome"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Digite seu e-mail"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha</label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Digite sua senha"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="telephone">Telefone</label>
+
+            <input
+              type="tel"
+              id="telephone"
+              name="telephone"
+              placeholder="(83) 99999-9999"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn-cadastrar">Criar conta</button>
+        </form>
+
+        <p class="login-text">
+          Já possui uma conta?
+          <a href="../login/login.html">Entrar</a>
+        </p>
+      </div>
+    </div>
+
+    <script src="cadastro.js"></script>
+  </body>
+</html>

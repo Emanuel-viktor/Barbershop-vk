@@ -1,0 +1,193 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+}
+
+/* CONTAINER */
+
+.cadastro-container {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px 20px;
+}
+
+/* CARD */
+
+.cadastro-card {
+  width: 100%;
+  max-width: 430px;
+
+  background: #181818;
+
+  border: 1px solid #292929;
+
+  border-radius: 10px;
+
+  padding: 38px 35px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* LOGO */
+
+.logo {
+  text-align: center;
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+  letter-spacing: 2px;
+
+  margin-bottom: 8px;
+}
+
+.logo span {
+  color: #d4af37;
+}
+
+/* SUBTÍTULO */
+
+.subtitle {
+  text-align: center;
+
+  color: #888;
+
+  font-size: 14px;
+
+  margin-bottom: 30px;
+}
+
+/* FORMULÁRIO */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+
+  color: #ddd;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-bottom: 7px;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  background: #111;
+
+  border: 1px solid #333;
+
+  border-radius: 6px;
+
+  color: #fff;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.form-group input::placeholder {
+  color: #666;
+}
+
+.form-group input:focus {
+  border-color: #d4af37;
+
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.08);
+}
+
+/* BOTÃO */
+
+.btn-cadastrar {
+  width: 100%;
+
+  padding: 13px;
+
+  margin-top: 5px;
+
+  background: #d4af37;
+
+  border: none;
+
+  border-radius: 6px;
+
+  color: #111;
+
+  font-size: 14px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.btn-cadastrar:hover {
+  background: #c49b1f;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.18);
+}
+
+/* LOGIN */
+
+.login-text {
+  text-align: center;
+
+  color: #777;
+
+  font-size: 13px;
+
+  margin-top: 22px;
+}
+
+.login-text a {
+  color: #d4af37;
+
+  text-decoration: none;
+
+  font-weight: bold;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 480px) {
+  .cadastro-container {
+    padding: 20px 15px;
+  }
+
+  .cadastro-card {
+    padding: 30px 22px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+}
