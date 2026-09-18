@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -26,17 +27,19 @@ public class TestConfig implements CommandLineRunner {
     private SchedulingRepository schedulingRepository;
     @Autowired
     private BarberRepository barberRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     LocalDate appointmentDate = LocalDate.of(2026, 8, 18);
     LocalTime scheduledTime = LocalTime.of(9, 0);
     @Override
     public void run(String... args) throws Exception {
 
-        User u1 =new User(null,"Viktor","viktor@gmail.com","123","9332424342",null);
+        User u1 =new User(null,"Viktor","viktor@gmail.com",  passwordEncoder.encode("123"),"9332424342",null);
 
         userRepository.save(u1);
 
-        Barber b1=new Barber(null,"PEDRO","Pedro@gmail.com","1234","833384343","melhor da regiao",null);
+        Barber b1=new Barber(null,"PEDRO","Pedro@gmail.com",  passwordEncoder.encode("123"),"833384343","melhor da regiao",null);
 
         barberRepository.save(b1);
 

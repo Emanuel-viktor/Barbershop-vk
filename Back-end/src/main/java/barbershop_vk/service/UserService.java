@@ -1,6 +1,8 @@
 package barbershop_vk.service;
 
+import barbershop_vk.dto.LoginResponse;
 import barbershop_vk.entity.User;
+import barbershop_vk.security.JWTService;
 import barbershop_vk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,9 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JWTService jwtService;
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -41,7 +46,8 @@ public class UserService {
 
         return userRepository.save(entity);
     }
-    public User login(String email, String password) {
+
+    public LoginResponse login(String email, String password) {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("E-mail ou senha inválidos"));
@@ -50,7 +56,14 @@ public class UserService {
             throw new RuntimeException("E-mail ou senha inválidos");
         }
 
-        return user;
+        String token = jwtService.generateToken(user.getId());
+
+        return new LoginResponse(
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                token
+        );
     }
 
-    }
+}

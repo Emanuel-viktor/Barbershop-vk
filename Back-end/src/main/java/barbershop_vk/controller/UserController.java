@@ -1,6 +1,7 @@
 package barbershop_vk.controller;
 
 import barbershop_vk.dto.LoginRequest;
+import barbershop_vk.dto.LoginResponse;
 import barbershop_vk.entity.User;
 import barbershop_vk.repository.UserRepository;
 import barbershop_vk.service.UserService;
@@ -28,8 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody LoginRequest loginRequest) {
-
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return userService.login(
                 loginRequest.getEmail(),
                 loginRequest.getPassword()
