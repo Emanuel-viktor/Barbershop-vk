@@ -30,8 +30,17 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
+
+                        // Login do cliente
                         .requestMatchers("/users/login").permitAll()
+
+                        // Login do barbeiro
+                        .requestMatchers(HttpMethod.POST, "/barbers/login").permitAll()
+
+                        // Cadastro de cliente
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
+
+                        // Todo o restante precisa de JWT
                         .anyRequest().authenticated()
                 )
 
