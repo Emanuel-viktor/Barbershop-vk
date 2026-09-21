@@ -7,6 +7,7 @@ import barbershop_vk.repository.UserRepository;
 import barbershop_vk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasRole('CLIENTE')")
     @GetMapping
     public List<User> getUsers() {
         return userService.findAll();
