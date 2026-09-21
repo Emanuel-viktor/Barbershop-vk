@@ -16,12 +16,13 @@ public class JWTService {
         this.jwtEncoder = jwtEncoder;
     }
 
-    public String generateToken(Long userId) {
+    public String generateToken(Long userId, String role) {
 
         Instant now = Instant.now();
 
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .subject(userId.toString())
+                .claim("role", role)
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(86400))
                 .build();
@@ -29,4 +30,5 @@ public class JWTService {
         return jwtEncoder.encode(
                 JwtEncoderParameters.from(claims)
         ).getTokenValue();
-    }}
+    }
+}

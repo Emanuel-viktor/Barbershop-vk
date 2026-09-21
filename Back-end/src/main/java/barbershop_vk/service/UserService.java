@@ -56,7 +56,10 @@ public class UserService {
             throw new RuntimeException("E-mail ou senha inválidos");
         }
 
-        String token = jwtService.generateToken(user.getId());
+        String token = jwtService.generateToken(
+                user.getId(),
+                "CLIENTE"
+        );
 
         return new LoginResponse(
                 user.getId(),
