@@ -17,9 +17,14 @@ public class SchedulingService {
         return schedulingRepository.findAll();
     }
 
+    public List<Scheduling> findQueue() {
+        return schedulingRepository.findAllByOrderByQueueOrderAsc();
+    }
+
     public Scheduling insert(Scheduling scheduling) {
         return schedulingRepository.save(scheduling);
     }
+
     public void delete(Long id){
         schedulingRepository.deleteById(id);
     }

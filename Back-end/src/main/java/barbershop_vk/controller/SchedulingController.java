@@ -31,6 +31,11 @@ public class SchedulingController {
     public void deleteScheduling(@RequestBody Long id) {
         schedulingService.delete(id);
     }
+    @GetMapping("/queue")
+    @PreAuthorize("hasRole('BARBEIRO')")
+    public List<Scheduling> findQueue() {
+        return schedulingService.findQueue();
+    }
 
 
 }
