@@ -1,6 +1,7 @@
 package barbershop_vk.enums;
 
 public enum SchedulingStatus {
+
     FINALIZADO(1),
     AGENDADO(2),
     CANCELADO(3),
@@ -8,7 +9,7 @@ public enum SchedulingStatus {
 
     private int codeSchedulingStatus;
 
-    private SchedulingStatus(int codeStatusPayment) {
+    private SchedulingStatus(int codeSchedulingStatus) {
         this.codeSchedulingStatus = codeSchedulingStatus;
     }
 
@@ -25,6 +26,8 @@ public enum SchedulingStatus {
             }
         }
 
-        throw new IllegalArgumentException("Código inválido: " + codeSchedulingStatus);
+        throw new IllegalArgumentException(
+                "Código inválido: " + codeSchedulingStatus
+        );
     }
 }

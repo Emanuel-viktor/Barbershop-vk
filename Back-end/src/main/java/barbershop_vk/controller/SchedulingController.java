@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,11 @@ public class SchedulingController {
     }
     @GetMapping("/queue")
     @PreAuthorize("hasRole('BARBEIRO')")
-    public List<Scheduling> findQueue() {
-        return schedulingService.findQueue();
+    public List<Scheduling> findQueue(
+            @RequestParam Long barberId,
+            @RequestParam LocalDate date
+    ) {
+        return schedulingService.findQueue(barberId, date);
     }
 
 

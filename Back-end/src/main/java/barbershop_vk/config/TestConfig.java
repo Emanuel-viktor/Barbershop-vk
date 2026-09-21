@@ -54,7 +54,7 @@ public class TestConfig implements CommandLineRunner {
         Scheduling sc2 = new Scheduling(null, appointmentDate, LocalTime.of(9, 30), null, null, "Cliente 2", SchedulingStatus.AGENDADO, 2, null, u1, b1, s1, null
         );
         schedulingRepository.save(sc2);
-        Scheduling sc3 = new Scheduling(null, appointmentDate, LocalTime.of(10, 0), null, null, "Cliente 3", SchedulingStatus.AGENDADO, 3, null, u1, b1, s1, null
+        Scheduling sc3 = new Scheduling(null, appointmentDate, LocalTime.of(10, 0), null, null, "Cliente 3", SchedulingStatus.FINALIZADO, 3, null, u1, b1, s1, null
         );
 
         schedulingRepository.save(sc3);
