@@ -55,6 +55,11 @@ public class SchedulingController {
     public Scheduling startScheduling(@PathVariable Long id) {
         return schedulingService.startScheduling(id);
     }
+    @PutMapping("/{id}/finish")
+    @PreAuthorize("hasRole('BARBEIRO')")
+    public Scheduling finishScheduling(@PathVariable Long id) {
+        return schedulingService.finishScheduling(id);
+    }
 
 
 }

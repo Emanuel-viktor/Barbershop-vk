@@ -145,6 +145,25 @@ public class SchedulingService {
 
         return schedulingRepository.save(scheduling);
     }
+    @Transactional
+    public Scheduling finishScheduling(Long id) {
+
+        Scheduling scheduling = schedulingRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Agendamento não encontrado")
+                );
+
+        if (scheduling.getStatus() != SchedulingStatus.ANDAMENTO) {
+            throw new RuntimeException(
+                    "Somente atendimentos em andamento podem ser finalizados"
+            );
+        }
+
+        scheduling.setStatus(SchedulingStatus.FINALIZADO);
+        scheduling.setEndTime(LocalTime.now());
+
+        return schedulingRepository.save(scheduling);
+    }
 
 
 }
