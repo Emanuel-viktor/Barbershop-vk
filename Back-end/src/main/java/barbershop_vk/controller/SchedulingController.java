@@ -6,6 +6,8 @@ import barbershop_vk.service.SchedulingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
+import barbershop_vk.dto.QueuePositionRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,6 +41,14 @@ public class SchedulingController {
             @RequestParam LocalDate date
     ) {
         return schedulingService.findQueue(barberId, date);
+    }
+    @PutMapping("/{id}/queue-position")
+    @PreAuthorize("hasRole('BARBEIRO')")
+    public Scheduling updateQueuePosition(
+            @PathVariable Long id,
+            @RequestBody QueuePositionRequest request
+    ) {
+        return schedulingService.updateQueuePosition(id, request);
     }
 
 

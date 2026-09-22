@@ -5,6 +5,8 @@ import barbershop_vk.enums.SchedulingStatus;
 import barbershop_vk.repository.SchedulingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import barbershop_vk.dto.QueuePositionRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,6 +42,88 @@ public class SchedulingService {
 
     public void delete(Long id){
         schedulingRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Scheduling updateQueuePosition(
+            Long schedulingId,
+            QueuePositionRequest request
+    ) {
+
+        Scheduling scheduling = schedulingRepository.findById(schedulingId)
+                .orElseThrow(() ->
+                        new RuntimeException("Agendamento não encontrado")
+                );
+
+        Integer oldPosition = scheduling.getQueueOrder();
+        Integer newPosition = request.getQueueOrder();
+
+        if (newPosition == null || newPosition < 1) {
+            throw new RuntimeException("Posição inválida");
+        }
+
+        if (oldPosition.equals(newPosition)) {
+            return scheduling;
+        }
+
+        if (newPosition < oldPosition) {
+
+            List<Scheduling> schedulings =
+                    schedulingRepository
+                            .findByBarberIdAndAppointmentDateAndStatusInOrderByQueueOrderAsc(
+                                    scheduling.getBarber().getId(),
+                                    scheduling.getAppointmentDate(),
+                                    List.of(
+                                            SchedulingStatus.AGENDADO,
+                                            SchedulingStatus.ANDAMENTO
+                                    )
+                            );
+
+            for (Scheduling item : schedulings) {
+
+                if (item.getId().equals(scheduling.getId())) {
+                    continue;
+                }
+
+                if (item.getQueueOrder() >= newPosition
+                        && item.getQueueOrder() < oldPosition) {
+
+                    item.setQueueOrder(item.getQueueOrder() + 1);
+                    schedulingRepository.save(item);
+                }
+            }
+
+        } else {
+
+            List<Scheduling> schedulings =
+                    schedulingRepository
+                            .findByBarberIdAndAppointmentDateAndStatusInOrderByQueueOrderAsc(
+                                    scheduling.getBarber().getId(),
+                                    scheduling.getAppointmentDate(),
+                                    List.of(
+                                            SchedulingStatus.AGENDADO,
+                                            SchedulingStatus.ANDAMENTO
+                                    )
+                            );
+
+            for (Scheduling item : schedulings) {
+
+                if (item.getId().equals(scheduling.getId())) {
+                    continue;
+                }
+
+                if (item.getQueueOrder() > oldPosition
+                        && item.getQueueOrder() <= newPosition) {
+
+                    item.setQueueOrder(item.getQueueOrder() - 1);
+                    schedulingRepository.save(item);
+                }
+            }
+        }
+
+        scheduling.setQueueOrder(newPosition);
+
+        return schedulingRepository.save(scheduling);
     }
 
 
