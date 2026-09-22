@@ -9,6 +9,7 @@ import barbershop_vk.dto.QueuePositionRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -122,6 +123,25 @@ public class SchedulingService {
         }
 
         scheduling.setQueueOrder(newPosition);
+
+        return schedulingRepository.save(scheduling);
+    }
+    @Transactional
+    public Scheduling startScheduling(Long id) {
+
+        Scheduling scheduling = schedulingRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Agendamento não encontrado")
+                );
+
+        if (scheduling.getStatus() != SchedulingStatus.AGENDADO) {
+            throw new RuntimeException(
+                    "Somente agendamentos podem ser iniciados"
+            );
+        }
+
+        scheduling.setStatus(SchedulingStatus.ANDAMENTO);
+        scheduling.setStartTime(LocalTime.now());
 
         return schedulingRepository.save(scheduling);
     }

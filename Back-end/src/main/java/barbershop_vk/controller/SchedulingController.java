@@ -50,6 +50,11 @@ public class SchedulingController {
     ) {
         return schedulingService.updateQueuePosition(id, request);
     }
+    @PutMapping("/{id}/start")
+    @PreAuthorize("hasRole('BARBEIRO')")
+    public Scheduling startScheduling(@PathVariable Long id) {
+        return schedulingService.startScheduling(id);
+    }
 
 
 }
