@@ -13,4 +13,9 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, Long> {
             LocalDate appointmentDate,
             List<SchedulingStatus> statuses
     );
+    List<Scheduling> findByBarberIdAndAppointmentDateAndStatusIn(
+            Long barberId,
+            LocalDate appointmentDate,
+            List<SchedulingStatus> statuses
+    );
 }

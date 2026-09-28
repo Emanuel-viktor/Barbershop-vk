@@ -2,6 +2,7 @@ package barbershop_vk.service;
 
 import barbershop_vk.entity.Scheduling;
 import barbershop_vk.enums.SchedulingStatus;
+import barbershop_vk.repository.BarberServiceRepository;
 import barbershop_vk.repository.SchedulingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class SchedulingService {
 
     @Autowired
     private SchedulingRepository schedulingRepository;
+
+    @Autowired
+    private BarberServiceRepository barberServiceRepository;
 
     public List<Scheduling> findAll() {
         return schedulingRepository.findAll();
@@ -165,5 +170,77 @@ public class SchedulingService {
         return schedulingRepository.save(scheduling);
     }
 
+    public List<LocalTime> getAvailableTimes(
+            Long barberId,
+            Long serviceId,
+            LocalDate date
+    ) {
+
+        barbershop_vk.entity.BarberService barberService = barberServiceRepository.findById(serviceId)
+                .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
+
+        int duration = barberService.getDuration();
+
+        List<Scheduling> schedulings =
+                schedulingRepository.findByBarberIdAndAppointmentDateAndStatusIn(
+                        barberId,
+                        date,
+                        List.of(
+                                SchedulingStatus.AGENDADO,
+                                SchedulingStatus.ANDAMENTO
+                        )
+                );
+
+        List<LocalTime> available = new ArrayList<>();
+
+        LocalTime current = LocalTime.of(8, 0);
+
+        while (current.isBefore(LocalTime.of(18, 0))) {
+
+            LocalTime end = current.plusMinutes(duration);
+
+            // pula horário de almoço
+            if (current.isBefore(LocalTime.of(13, 0))
+                    && end.isAfter(LocalTime.of(12, 0))) {
+
+                current = current.plusMinutes(15);
+                continue;
+            }
+
+            // não deixa passar das 18h
+            if (end.isAfter(LocalTime.of(18, 0))) {
+                break;
+            }
+
+            boolean occupied = false;
+
+            for (Scheduling scheduling : schedulings) {
+
+                int occupiedDuration =
+                        scheduling.getService().getDuration();
+
+                LocalTime occupiedStart =
+                        scheduling.getScheduledTime();
+
+                LocalTime occupiedEnd =
+                        occupiedStart.plusMinutes(occupiedDuration);
+
+                if (current.isBefore(occupiedEnd)
+                        && end.isAfter(occupiedStart)) {
+
+                    occupied = true;
+                    break;
+                }
+            }
+
+            if (!occupied) {
+                available.add(current);
+            }
+
+            current = current.plusMinutes(15);
+        }
+
+        return available;
+    }
 
 }
