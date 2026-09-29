@@ -1,5 +1,6 @@
 package barbershop_vk.controller;
 
+import barbershop_vk.dto.SchedulingRequest;
 import barbershop_vk.entity.Scheduling;
 import barbershop_vk.repository.SchedulingRepository;
 import barbershop_vk.service.SchedulingService;
@@ -29,14 +30,15 @@ public class SchedulingController {
     }
 
     @PostMapping
-    public Scheduling createScheduling(@RequestBody Scheduling scheduling) {
-        scheduling=schedulingService.insert(scheduling);
-        return scheduling;
+    public Scheduling createScheduling(@RequestBody SchedulingRequest request) {
+        return schedulingService.insert(request);
+
     }
     @DeleteMapping
     public void deleteScheduling(@RequestBody Long id) {
         schedulingService.delete(id);
     }
+
     @GetMapping("/queue")
     @PreAuthorize("hasRole('BARBEIRO')")
     public List<Scheduling> findQueue(

@@ -42,6 +42,8 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/scheduling/available").permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/scheduling").permitAll()
+
                         // Todo o restante precisa de JWT
                         .anyRequest().authenticated()
                 )

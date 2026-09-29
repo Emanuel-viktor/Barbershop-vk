@@ -1,15 +1,21 @@
 package barbershop_vk.service;
 
+import barbershop_vk.dto.SchedulingRequest;
+import barbershop_vk.entity.Barber;
 import barbershop_vk.entity.Scheduling;
+import barbershop_vk.entity.User;
 import barbershop_vk.enums.SchedulingStatus;
+import barbershop_vk.repository.BarberRepository;
 import barbershop_vk.repository.BarberServiceRepository;
 import barbershop_vk.repository.SchedulingRepository;
+import barbershop_vk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import barbershop_vk.dto.QueuePositionRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,6 +25,12 @@ public class SchedulingService {
 
     @Autowired
     private SchedulingRepository schedulingRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private BarberRepository barberRepository;
 
     @Autowired
     private BarberServiceRepository barberServiceRepository;
@@ -241,6 +253,61 @@ public class SchedulingService {
         }
 
         return available;
+    }
+    @Transactional
+    public Scheduling insert(SchedulingRequest request) {
+
+        User client = userRepository.findById(request.getClientId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
+        Barber barber = barberRepository.findById(request.getBarberId())
+                .orElseThrow(() -> new RuntimeException("Barbeiro não encontrado"));
+
+        barbershop_vk.entity.BarberService service =
+                barberServiceRepository.findById(request.getServiceId())
+                        .orElseThrow(() -> new RuntimeException("Serviço não encontrado"));
+
+        // Verifica se o horário ainda está disponível
+        List<LocalTime> available = getAvailableTimes(
+                request.getBarberId(),
+                request.getServiceId(),
+                request.getAppointmentDate()
+        );
+
+        if (!available.contains(request.getScheduledTime())) {
+            throw new RuntimeException("Horário indisponível.");
+        }
+
+        // Descobre a próxima posição da fila
+        List<Scheduling> queue = schedulingRepository
+                .findByBarberIdAndAppointmentDateAndStatusInOrderByQueueOrderAsc(
+                        barber.getId(),
+                        request.getAppointmentDate(),
+                        List.of(
+                                SchedulingStatus.AGENDADO,
+                                SchedulingStatus.ANDAMENTO
+                        )
+                );
+
+        int nextQueue = queue.isEmpty()
+                ? 1
+                : queue.get(queue.size() - 1).getQueueOrder() + 1;
+
+        Scheduling scheduling = new Scheduling();
+
+        scheduling.setAppointmentDate(request.getAppointmentDate());
+        scheduling.setScheduledTime(request.getScheduledTime());
+        scheduling.setObservation(request.getObservation());
+
+        scheduling.setStatus(SchedulingStatus.AGENDADO);
+        scheduling.setQueueOrder(nextQueue);
+        scheduling.setCreatedAt(LocalDateTime.now());
+
+        scheduling.setClient(client);
+        scheduling.setBarber(barber);
+        scheduling.setService(service);
+
+        return schedulingRepository.save(scheduling);
     }
 
 }
