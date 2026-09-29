@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import barbershop_vk.dto.QueuePositionRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,6 +63,17 @@ public class SchedulingController {
     public Scheduling finishScheduling(@PathVariable Long id) {
         return schedulingService.finishScheduling(id);
     }
-
+    @GetMapping("/available")
+    public List<LocalTime> getAvailableTimes(
+            @RequestParam Long barberId,
+            @RequestParam Long serviceId,
+            @RequestParam LocalDate date
+    ) {
+        return schedulingService.getAvailableTimes(
+                barberId,
+                serviceId,
+                date
+        );
+    }
 
 }

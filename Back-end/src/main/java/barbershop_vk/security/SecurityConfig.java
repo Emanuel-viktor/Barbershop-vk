@@ -40,6 +40,8 @@ public class SecurityConfig {
                         // Cadastro de cliente
                         .requestMatchers(HttpMethod.POST, "/users").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/scheduling/available").permitAll()
+
                         // Todo o restante precisa de JWT
                         .anyRequest().authenticated()
                 )
