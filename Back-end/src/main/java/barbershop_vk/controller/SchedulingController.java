@@ -77,5 +77,10 @@ public class SchedulingController {
                 date
         );
     }
+    @PutMapping("/{id}/cancel")
+    @PreAuthorize("hasRole('CLIENTE') or hasRole('BARBEIRO')")
+    public Scheduling cancelScheduling(@PathVariable Long id) {
+        return schedulingService.cancelScheduling(id);
+    }
 
 }

@@ -30,7 +30,7 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    LocalDate appointmentDate = LocalDate.of(2026, 8, 18);
+    LocalDate appointmentDate = LocalDate.of(2026, 9, 30);
     LocalTime scheduledTime = LocalTime.of(9, 0);
     @Override
     public void run(String... args) throws Exception {
@@ -46,7 +46,7 @@ public class TestConfig implements CommandLineRunner {
         Payment p1=new Payment(null,20, PaymentMethod.CREDITO, StatusPayment.APROVADO,null);
         paymentRepository.save(p1);
 
-        BarberService s1=new BarberService("degrade",null,"corte moderno",20,20);
+        BarberService s1 = new BarberService("Degradê", null, "Corte moderno", 30, 20);
         serviceRepository.save(s1);
 
         Scheduling sc=new Scheduling(null,appointmentDate,scheduledTime,null,null,"Tudo ok", SchedulingStatus.AGENDADO,1,null,u1,b1,s1,p1);

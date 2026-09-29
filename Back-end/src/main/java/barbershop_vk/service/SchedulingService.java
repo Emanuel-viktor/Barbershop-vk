@@ -13,7 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import barbershop_vk.dto.QueuePositionRequest;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -308,6 +309,52 @@ public class SchedulingService {
         scheduling.setService(service);
 
         return schedulingRepository.save(scheduling);
+    }
+    @Transactional
+    public Scheduling cancelScheduling(Long id) {
+
+        Scheduling scheduling = schedulingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+        if (scheduling.getStatus() != SchedulingStatus.AGENDADO) {
+            throw new RuntimeException("Somente agendamentos podem ser cancelados.");
+        }
+
+        // Verifica o limite de 2 horas
+        LocalDateTime appointmentDateTime = LocalDateTime.of(
+                scheduling.getAppointmentDate(),
+                scheduling.getScheduledTime()
+        );
+
+        if (LocalDateTime.now().isAfter(appointmentDateTime.minusHours(2))) {
+            throw new RuntimeException(
+                    "Cancelamento permitido apenas até 2 horas antes do atendimento."
+            );
+        }
+
+        // Cancela
+        scheduling.setStatus(SchedulingStatus.CANCELADO);
+        schedulingRepository.save(scheduling);
+
+        // Reorganiza a fila
+        List<Scheduling> queue =
+                schedulingRepository.findByBarberIdAndAppointmentDateAndStatusInOrderByScheduledTimeAsc(
+                        scheduling.getBarber().getId(),
+                        scheduling.getAppointmentDate(),
+                        List.of(
+                                SchedulingStatus.AGENDADO,
+                                SchedulingStatus.ANDAMENTO
+                        )
+                );
+
+        int position = 1;
+
+        for (Scheduling item : queue) {
+            item.setQueueOrder(position++);
+            schedulingRepository.save(item);
+        }
+
+        return scheduling;
     }
 
 }
