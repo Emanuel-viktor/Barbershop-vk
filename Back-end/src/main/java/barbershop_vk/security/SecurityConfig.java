@@ -44,6 +44,8 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.POST, "/scheduling").permitAll()
 
+                        .requestMatchers(HttpMethod.POST, "/payments").permitAll()
+
                         // Todo o restante precisa de JWT
                         .anyRequest().authenticated()
                 )

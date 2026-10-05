@@ -1,5 +1,6 @@
 package barbershop_vk.controller;
 
+import barbershop_vk.dto.PaymentRequest;
 import barbershop_vk.entity.Payment;
 import barbershop_vk.repository.PaymentRepository;
 import barbershop_vk.service.PaymentService;
@@ -15,20 +16,11 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @GetMapping
-    public List<Payment> findAll() {
-        return paymentService.findAll();
-    }
+    @PostMapping("/{schedulingId}")
+    public Payment createPayment(
+            @PathVariable Long schedulingId,
+            @RequestBody PaymentRequest request) {
 
-    @PostMapping
-    public Payment insert(@RequestBody Payment payment) {
-        payment=paymentService.insert(payment);
-        return payment;
+        return paymentService.createPayment(schedulingId, request);
     }
-    @DeleteMapping
-    public void deletePayment(@RequestBody Long id){
-        paymentService.delete(id);
-    }
-
-
 }

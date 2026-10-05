@@ -21,7 +21,7 @@ public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int value;
+    private double value;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod ;
     @Enumerated(EnumType.STRING)
@@ -35,7 +35,7 @@ public class Payment implements Serializable {
     public Payment() {
     }
 
-    public Payment(Long id, int value, PaymentMethod paymentMethod,
+    public Payment(Long id, double value, PaymentMethod paymentMethod,
                    StatusPayment statusPayment, Scheduling scheduling) {
         this.id = id;
         this.value = value;
