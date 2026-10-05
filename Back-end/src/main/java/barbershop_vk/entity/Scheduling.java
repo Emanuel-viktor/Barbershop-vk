@@ -53,8 +53,7 @@ public class Scheduling implements Serializable {
     private BarberService service;
 
     @JsonManagedReference("payment-scheduling")
-    @OneToOne
-    @JoinColumn(name = "payment_id")
+    @OneToOne(mappedBy = "scheduling")
     private Payment payment;
 
     public Scheduling() {
