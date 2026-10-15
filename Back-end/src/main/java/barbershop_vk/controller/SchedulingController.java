@@ -2,7 +2,6 @@ package barbershop_vk.controller;
 
 import barbershop_vk.dto.SchedulingRequest;
 import barbershop_vk.entity.Scheduling;
-import barbershop_vk.repository.SchedulingRepository;
 import barbershop_vk.service.SchedulingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -10,7 +9,6 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import barbershop_vk.dto.QueuePositionRequest;
-import org.springframework.security.access.prepost.PreAuthorize;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,11 +34,6 @@ public class SchedulingController {
         return schedulingService.insert(request);
 
     }
-    @DeleteMapping
-    public void deleteScheduling(@RequestBody Long id) {
-        schedulingService.delete(id);
-    }
-
     @GetMapping("/queue")
     @PreAuthorize("hasRole('BARBEIRO')")
     public List<Scheduling> findQueue(
@@ -81,8 +74,19 @@ public class SchedulingController {
     }
     @PutMapping("/{id}/cancel")
     @PreAuthorize("hasRole('CLIENTE') or hasRole('BARBEIRO')")
-    public Scheduling cancelScheduling(@PathVariable Long id) {
-        return schedulingService.cancelScheduling(id);
+    public Scheduling cancelScheduling(
+            @PathVariable Long id,
+            @AuthenticationPrincipal Jwt jwt) {
+
+        Long authenticatedId = Long.valueOf(jwt.getSubject());
+
+        boolean isBarber = jwt.getClaimAsString("role").equals("BARBEIRO");
+
+        return schedulingService.cancelScheduling(
+                id,
+                authenticatedId,
+                isBarber
+        );
     }
 
     @GetMapping("/my")

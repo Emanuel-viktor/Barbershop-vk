@@ -310,31 +310,45 @@ public class SchedulingService {
 
         return schedulingRepository.save(scheduling);
     }
+
     @Transactional
-    public Scheduling cancelScheduling(Long id) {
+    public Scheduling cancelScheduling(Long id, Long authenticatedId, boolean isBarber) {
 
         Scheduling scheduling = schedulingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
 
+        // Impede cancelar agendamentos em andamento, finalizados ou já cancelados
         if (scheduling.getStatus() != SchedulingStatus.AGENDADO) {
-            throw new RuntimeException("Somente agendamentos podem ser cancelados.");
-        }
-
-        // Verifica o limite de 2 horas
-        LocalDateTime appointmentDateTime = LocalDateTime.of(
-                scheduling.getAppointmentDate(),
-                scheduling.getScheduledTime()
-        );
-
-        if (LocalDateTime.now().isAfter(appointmentDateTime.minusHours(2))) {
             throw new RuntimeException(
-                    "Cancelamento permitido apenas até 2 horas antes do atendimento."
+                    "Somente agendamentos com status AGENDADO podem ser cancelados."
             );
         }
 
-        // Cancela
+        // Cliente só pode cancelar o próprio agendamento
+        if (!isBarber && !scheduling.getClient().getId().equals(authenticatedId)) {
+            throw new RuntimeException(
+                    "Você não pode cancelar o agendamento de outro cliente."
+            );
+        }
+
+        // Somente o cliente precisa respeitar o prazo de 2 horas
+        if (!isBarber) {
+            LocalDateTime appointmentDateTime = LocalDateTime.of(
+                    scheduling.getAppointmentDate(),
+                    scheduling.getScheduledTime()
+            );
+
+            if (LocalDateTime.now().isAfter(appointmentDateTime.minusHours(2))) {
+                throw new RuntimeException(
+                        "Cancelamento permitido apenas até 2 horas antes do atendimento."
+                );
+            }
+        }
+
+        // Cancela o agendamento
         scheduling.setStatus(SchedulingStatus.CANCELADO);
         schedulingRepository.save(scheduling);
+
 
         // Reorganiza a fila
         List<Scheduling> queue =
