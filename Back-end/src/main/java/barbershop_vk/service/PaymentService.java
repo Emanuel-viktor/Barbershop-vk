@@ -3,6 +3,7 @@ package barbershop_vk.service;
 import barbershop_vk.dto.PaymentRequest;
 import barbershop_vk.entity.Payment;
 import barbershop_vk.entity.Scheduling;
+import barbershop_vk.enums.SchedulingStatus;
 import barbershop_vk.repository.PaymentRepository;
 import barbershop_vk.repository.SchedulingRepository;
 import jakarta.transaction.Transactional;
@@ -29,6 +30,11 @@ public class PaymentService {
 
         if (scheduling.getPayment() != null) {
             throw new RuntimeException("Este agendamento já possui um pagamento.");
+        }
+        if (scheduling.getStatus() != SchedulingStatus.FINALIZADO) {
+            throw new RuntimeException(
+                    "Só é possível registrar pagamento após finalizar o atendimento."
+            );
         }
 
         Payment payment = new Payment();

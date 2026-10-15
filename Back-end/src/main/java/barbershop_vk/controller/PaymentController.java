@@ -3,6 +3,7 @@ package barbershop_vk.controller;
 import barbershop_vk.dto.PaymentRequest;
 import barbershop_vk.entity.Payment;
 import barbershop_vk.service.PaymentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class PaymentController {
     @PreAuthorize("hasRole('BARBEIRO')")
     public Payment createPayment(
             @PathVariable Long schedulingId,
-            @RequestBody PaymentRequest request) {
+            @Valid @RequestBody PaymentRequest request) {
 
         return paymentService.createPayment(schedulingId, request);
     }
