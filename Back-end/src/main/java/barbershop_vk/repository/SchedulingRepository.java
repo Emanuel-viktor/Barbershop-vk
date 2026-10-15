@@ -23,4 +23,8 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, Long> {
             LocalDate appointmentDate,
             List<SchedulingStatus> statuses
     );
+
+    List<Scheduling> findByClient_IdOrderByAppointmentDateDescScheduledTimeAsc(
+            Long clientId
+    );
 }

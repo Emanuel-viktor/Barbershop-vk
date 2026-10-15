@@ -5,6 +5,8 @@ import barbershop_vk.entity.Scheduling;
 import barbershop_vk.repository.SchedulingRepository;
 import barbershop_vk.service.SchedulingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import barbershop_vk.dto.QueuePositionRequest;
@@ -82,5 +84,16 @@ public class SchedulingController {
     public Scheduling cancelScheduling(@PathVariable Long id) {
         return schedulingService.cancelScheduling(id);
     }
+
+    @GetMapping("/my")
+    @PreAuthorize("hasRole('CLIENTE')")
+    public List<Scheduling> findMySchedulings(
+            @AuthenticationPrincipal Jwt jwt) {
+
+        Long clientId = Long.valueOf(jwt.getSubject());
+
+        return schedulingService.findMySchedulings(clientId);
+    }
+
 
 }

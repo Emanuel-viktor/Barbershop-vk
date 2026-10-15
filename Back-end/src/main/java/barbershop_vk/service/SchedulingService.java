@@ -356,5 +356,9 @@ public class SchedulingService {
 
         return scheduling;
     }
+    public List<Scheduling> findMySchedulings(Long clientId) {
+        return schedulingRepository
+                .findByClient_IdOrderByAppointmentDateDescScheduledTimeAsc(clientId);
+    }
 
 }
